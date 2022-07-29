@@ -1,0 +1,351 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CLINICModelStoreContainer" CdmEntityContainer="CLINICEntities">
+    <EntitySetMapping Name="Accounts">
+      <EntityTypeMapping TypeName="CLINICModel.Account">
+        <MappingFragment StoreEntitySet="Account">
+          <ScalarProperty Name="Account_id" ColumnName="Account_id" />
+          <ScalarProperty Name="Account_Username" ColumnName="Account_Username" />
+          <ScalarProperty Name="Account_Password" ColumnName="Account_Password" />
+          <ScalarProperty Name="Account_Email" ColumnName="Account_Email" />
+          <ScalarProperty Name="Account_Mobile" ColumnName="Account_Mobile" />
+          <ScalarProperty Name="Account_Type" ColumnName="Account_Type" />
+          <ScalarProperty Name="Account_CreatedAt" ColumnName="Account_CreatedAt" />
+          <ScalarProperty Name="Account_Status" ColumnName="Account_Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Appointments">
+      <EntityTypeMapping TypeName="CLINICModel.Appointment">
+        <MappingFragment StoreEntitySet="Appointment">
+          <ScalarProperty Name="Appointment_id" ColumnName="Appointment_id" />
+          <ScalarProperty Name="Appointment_Date" ColumnName="Appointment_Date" />
+          <ScalarProperty Name="Appointment_Time" ColumnName="Appointment_Time" />
+          <ScalarProperty Name="Appointment_Duration" ColumnName="Appointment_Duration" />
+          <ScalarProperty Name="Appointment_Status" ColumnName="Appointment_Status" />
+          <ScalarProperty Name="Appointment_PatientId" ColumnName="Appointment_PatientId" />
+          <ScalarProperty Name="Appointment_DoctorId" ColumnName="Appointment_DoctorId" />
+          <ScalarProperty Name="Appointment_CreatedBy" ColumnName="Appointment_CreatedBy" />
+          <ScalarProperty Name="Appointment_CreatedTime" ColumnName="Appointment_CreatedTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Doctors">
+      <EntityTypeMapping TypeName="CLINICModel.Doctor">
+        <MappingFragment StoreEntitySet="Doctor">
+          <ScalarProperty Name="Doctor_id" ColumnName="Doctor_id" />
+          <ScalarProperty Name="Doctor_FirstName" ColumnName="Doctor_FirstName" />
+          <ScalarProperty Name="Doctor_LastName" ColumnName="Doctor_LastName" />
+          <ScalarProperty Name="Doctor_Gender" ColumnName="Doctor_Gender" />
+          <ScalarProperty Name="Doctor_Specialization" ColumnName="Doctor_Specialization" />
+          <ScalarProperty Name="Doctor_Mobile" ColumnName="Doctor_Mobile" />
+          <ScalarProperty Name="Doctor_Email" ColumnName="Doctor_Email" />
+          <ScalarProperty Name="Doctor_Address" ColumnName="Doctor_Address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Patients">
+      <EntityTypeMapping TypeName="CLINICModel.Patient">
+        <MappingFragment StoreEntitySet="Patient">
+          <ScalarProperty Name="Patient_id" ColumnName="Patient_id" />
+          <ScalarProperty Name="Patient_FirstName" ColumnName="Patient_FirstName" />
+          <ScalarProperty Name="Patient_LastName" ColumnName="Patient_LastName" />
+          <ScalarProperty Name="Patient_Gender" ColumnName="Patient_Gender" />
+          <ScalarProperty Name="Patient_Mobile" ColumnName="Patient_Mobile" />
+          <ScalarProperty Name="Patient_Email" ColumnName="Patient_Email" />
+          <ScalarProperty Name="Patient_Address" ColumnName="Patient_Address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sessions">
+      <EntityTypeMapping TypeName="CLINICModel.Session">
+        <MappingFragment StoreEntitySet="Session">
+          <ScalarProperty Name="Session_id" ColumnName="Session_id" />
+          <ScalarProperty Name="Session_AccountId" ColumnName="Session_AccountId" />
+          <ScalarProperty Name="Session_AppId" ColumnName="Session_AppId" />
+          <ScalarProperty Name="Session_UserName" ColumnName="Session_UserName" />
+          <ScalarProperty Name="Session_StartTime" ColumnName="Session_StartTime" />
+          <ScalarProperty Name="Session_LastActivityTime" ColumnName="Session_LastActivityTime" />
+          <ScalarProperty Name="Session_IsTerminated" ColumnName="Session_IsTerminated" />
+          <ScalarProperty Name="Session_IsKilled" ColumnName="Session_IsKilled" />
+          <ScalarProperty Name="Session_IPAddress" ColumnName="Session_IPAddress" />
+          <ScalarProperty Name="Session_HostName" ColumnName="Session_HostName" />
+          <ScalarProperty Name="Session_VersionNo" ColumnName="Session_VersionNo" />
+          <ScalarProperty Name="Session_TransactionId" ColumnName="Session_TransactionId" />
+          <ScalarProperty Name="Session_CreatedBy" ColumnName="Session_CreatedBy" />
+          <ScalarProperty Name="Session_CreatedTime" ColumnName="Session_CreatedTime" />
+          <ScalarProperty Name="Session_LastUpdatedBy" ColumnName="Session_LastUpdatedBy" />
+          <ScalarProperty Name="Session_LastUpdatedTime" ColumnName="Session_LastUpdatedTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="CLINICModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="CLINICModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_ApmtDetails" FunctionName="CLINICModel.Store.sp_ApmtDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CLINICModel.sp_ApmtDetails_Result">
+          <ScalarProperty Name="Appointment_Date" ColumnName="Appointment_Date" />
+          <ScalarProperty Name="Appointment_Time" ColumnName="Appointment_Time" />
+          <ScalarProperty Name="Appointment_Duration" ColumnName="Appointment_Duration" />
+          <ScalarProperty Name="Appointment_Status" ColumnName="Appointment_Status" />
+          <ScalarProperty Name="Doctor_FirstName" ColumnName="Doctor_FirstName" />
+          <ScalarProperty Name="Doctor_LastName" ColumnName="Doctor_LastName" />
+          <ScalarProperty Name="Doctor_Gender" ColumnName="Doctor_Gender" />
+          <ScalarProperty Name="Doctor_Specialization" ColumnName="Doctor_Specialization" />
+          <ScalarProperty Name="Patient_FirstName" ColumnName="Patient_FirstName" />
+          <ScalarProperty Name="Patient_LastName" ColumnName="Patient_LastName" />
+          <ScalarProperty Name="Patient_Gender" ColumnName="Patient_Gender" />
+          <ScalarProperty Name="Patient_Mobile" ColumnName="Patient_Mobile" />
+          <ScalarProperty Name="Patient_Email" ColumnName="Patient_Email" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ApmtHistory" FunctionName="CLINICModel.Store.sp_ApmtHistory">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CLINICModel.sp_ApmtHistory_Result">
+          <ScalarProperty Name="Appointment_Date" ColumnName="Appointment_Date" />
+          <ScalarProperty Name="Appointment_Time" ColumnName="Appointment_Time" />
+          <ScalarProperty Name="Appointment_Duration" ColumnName="Appointment_Duration" />
+          <ScalarProperty Name="Appointment_Status" ColumnName="Appointment_Status" />
+          <ScalarProperty Name="DOCTOR_FIRSTNAME" ColumnName="DOCTOR_FIRSTNAME" />
+          <ScalarProperty Name="DOCTOR_LASTNAME" ColumnName="DOCTOR_LASTNAME" />
+          <ScalarProperty Name="DOCTOR_GENDER" ColumnName="DOCTOR_GENDER" />
+          <ScalarProperty Name="DOCTOR_SPECIALIZATION" ColumnName="DOCTOR_SPECIALIZATION" />
+          <ScalarProperty Name="PATIENT_FIRSTNAME" ColumnName="PATIENT_FIRSTNAME" />
+          <ScalarProperty Name="PATIENT_LASTNAME" ColumnName="PATIENT_LASTNAME" />
+          <ScalarProperty Name="PATIENT_GENDER" ColumnName="PATIENT_GENDER" />
+          <ScalarProperty Name="PATIENT_MOBILE" ColumnName="PATIENT_MOBILE" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_CancelApmt" FunctionName="CLINICModel.Store.sp_CancelApmt" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="CLINICModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_DelAcct" FunctionName="CLINICModel.Store.sp_DelAcct" />
+    <FunctionImportMapping FunctionImportName="sp_DelApmt" FunctionName="CLINICModel.Store.sp_DelApmt" />
+    <FunctionImportMapping FunctionImportName="sp_DelDoc" FunctionName="CLINICModel.Store.sp_DelDoc" />
+    <FunctionImportMapping FunctionImportName="sp_DelPat" FunctionName="CLINICModel.Store.sp_DelPat" />
+    <FunctionImportMapping FunctionImportName="sp_DocAvailability" FunctionName="CLINICModel.Store.sp_DocAvailability">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CLINICModel.sp_DocAvailability_Result">
+          <ScalarProperty Name="DOCTOR_ID" ColumnName="DOCTOR_ID" />
+          <ScalarProperty Name="DOCTOR_FIRSTNAME" ColumnName="DOCTOR_FIRSTNAME" />
+          <ScalarProperty Name="DOCTOR_LASTNAME" ColumnName="DOCTOR_LASTNAME" />
+          <ScalarProperty Name="DOCTOR_GENDER" ColumnName="DOCTOR_GENDER" />
+          <ScalarProperty Name="DOCTOR_SPECIALIZATION" ColumnName="DOCTOR_SPECIALIZATION" />
+          <ScalarProperty Name="DOCTOR_MOBILE" ColumnName="DOCTOR_MOBILE" />
+          <ScalarProperty Name="DOCTOR_EMAIL" ColumnName="DOCTOR_EMAIL" />
+          <ScalarProperty Name="DOCTOR_ADDRESS" ColumnName="DOCTOR_ADDRESS" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_DocExceed6Hour" FunctionName="CLINICModel.Store.sp_DocExceed6Hour">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CLINICModel.sp_DocExceed6Hour_Result">
+          <ScalarProperty Name="DOCTOR_ID" ColumnName="DOCTOR_ID" />
+          <ScalarProperty Name="DOCTOR_FIRSTNAME" ColumnName="DOCTOR_FIRSTNAME" />
+          <ScalarProperty Name="DOCTOR_LASTNAME" ColumnName="DOCTOR_LASTNAME" />
+          <ScalarProperty Name="NOOFPATIENTS" ColumnName="NOOFPATIENTS" />
+          <ScalarProperty Name="TOTALDURATION" ColumnName="TOTALDURATION" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_DoctorSchedule" FunctionName="CLINICModel.Store.sp_DoctorSchedule">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CLINICModel.sp_DoctorSchedule_Result">
+          <ScalarProperty Name="Appointment_Date" ColumnName="Appointment_Date" />
+          <ScalarProperty Name="Appointment_Time" ColumnName="Appointment_Time" />
+          <ScalarProperty Name="Appointment_Duration" ColumnName="Appointment_Duration" />
+          <ScalarProperty Name="Appointment_Status" ColumnName="Appointment_Status" />
+          <ScalarProperty Name="Doctor_FirstName" ColumnName="Doctor_FirstName" />
+          <ScalarProperty Name="Doctor_LastName" ColumnName="Doctor_LastName" />
+          <ScalarProperty Name="Doctor_Gender" ColumnName="Doctor_Gender" />
+          <ScalarProperty Name="Doctor_Specialization" ColumnName="Doctor_Specialization" />
+          <ScalarProperty Name="Patient_FirstName" ColumnName="Patient_FirstName" />
+          <ScalarProperty Name="Patient_LastName" ColumnName="Patient_LastName" />
+          <ScalarProperty Name="Patient_Gender" ColumnName="Patient_Gender" />
+          <ScalarProperty Name="Patient_Mobile" ColumnName="Patient_Mobile" />
+          <ScalarProperty Name="Patient_Email" ColumnName="Patient_Email" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="CLINICModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="CLINICModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CLINICModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="CLINICModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CLINICModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_InsAcct" FunctionName="CLINICModel.Store.sp_InsAcct" />
+    <FunctionImportMapping FunctionImportName="sp_InsApmt" FunctionName="CLINICModel.Store.sp_InsApmt" />
+    <FunctionImportMapping FunctionImportName="sp_InsApmtByPat" FunctionName="CLINICModel.Store.sp_InsApmtByPat" />
+    <FunctionImportMapping FunctionImportName="sp_InsDoc" FunctionName="CLINICModel.Store.sp_InsDoc" />
+    <FunctionImportMapping FunctionImportName="sp_InsPat" FunctionName="CLINICModel.Store.sp_InsPat" />
+    <FunctionImportMapping FunctionImportName="sp_InsSession" FunctionName="CLINICModel.Store.sp_InsSession" />
+    <FunctionImportMapping FunctionImportName="sp_MaxDocAppointments" FunctionName="CLINICModel.Store.sp_MaxDocAppointments">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CLINICModel.sp_MaxDocAppointments_Result">
+          <ScalarProperty Name="DOCTOR_ID" ColumnName="DOCTOR_ID" />
+          <ScalarProperty Name="DOCTOR_FIRSTNAME" ColumnName="DOCTOR_FIRSTNAME" />
+          <ScalarProperty Name="DOCTOR_LASTNAME" ColumnName="DOCTOR_LASTNAME" />
+          <ScalarProperty Name="No_of_Patients" ColumnName="No_of_Patients" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_registerAcct" FunctionName="CLINICModel.Store.sp_registerAcct" />
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="CLINICModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_UpdAcct" FunctionName="CLINICModel.Store.sp_UpdAcct" />
+    <FunctionImportMapping FunctionImportName="sp_UpdApmt" FunctionName="CLINICModel.Store.sp_UpdApmt" />
+    <FunctionImportMapping FunctionImportName="sp_UpdDoc" FunctionName="CLINICModel.Store.sp_UpdDoc" />
+    <FunctionImportMapping FunctionImportName="sp_UpdPat" FunctionName="CLINICModel.Store.sp_UpdPat" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="CLINICModel.Store.sp_upgraddiagrams" />
+    <FunctionImportMapping FunctionImportName="sp_ViewAcctById" FunctionName="CLINICModel.Store.sp_ViewAcctById">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CLINICModel.sp_ViewAcctById_Result">
+          <ScalarProperty Name="Account_id" ColumnName="Account_id" />
+          <ScalarProperty Name="Account_Username" ColumnName="Account_Username" />
+          <ScalarProperty Name="Account_Password" ColumnName="Account_Password" />
+          <ScalarProperty Name="Account_Email" ColumnName="Account_Email" />
+          <ScalarProperty Name="Account_Mobile" ColumnName="Account_Mobile" />
+          <ScalarProperty Name="Account_Type" ColumnName="Account_Type" />
+          <ScalarProperty Name="Account_CreatedAt" ColumnName="Account_CreatedAt" />
+          <ScalarProperty Name="Account_Status" ColumnName="Account_Status" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ViewAcctTab" FunctionName="CLINICModel.Store.sp_ViewAcctTab">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CLINICModel.sp_ViewAcctTab_Result">
+          <ScalarProperty Name="Account_id" ColumnName="Account_id" />
+          <ScalarProperty Name="Account_Username" ColumnName="Account_Username" />
+          <ScalarProperty Name="Account_Password" ColumnName="Account_Password" />
+          <ScalarProperty Name="Account_Email" ColumnName="Account_Email" />
+          <ScalarProperty Name="Account_Mobile" ColumnName="Account_Mobile" />
+          <ScalarProperty Name="Account_Type" ColumnName="Account_Type" />
+          <ScalarProperty Name="Account_CreatedAt" ColumnName="Account_CreatedAt" />
+          <ScalarProperty Name="Account_Status" ColumnName="Account_Status" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ViewApmtById" FunctionName="CLINICModel.Store.sp_ViewApmtById">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CLINICModel.sp_ViewApmtById_Result">
+          <ScalarProperty Name="Appointment_id" ColumnName="Appointment_id" />
+          <ScalarProperty Name="Appointment_Date" ColumnName="Appointment_Date" />
+          <ScalarProperty Name="Appointment_Time" ColumnName="Appointment_Time" />
+          <ScalarProperty Name="Appointment_Duration" ColumnName="Appointment_Duration" />
+          <ScalarProperty Name="Appointment_Status" ColumnName="Appointment_Status" />
+          <ScalarProperty Name="Appointment_PatientId" ColumnName="Appointment_PatientId" />
+          <ScalarProperty Name="Appointment_DoctorId" ColumnName="Appointment_DoctorId" />
+          <ScalarProperty Name="Appointment_CreatedBy" ColumnName="Appointment_CreatedBy" />
+          <ScalarProperty Name="Appointment_CreatedTime" ColumnName="Appointment_CreatedTime" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ViewApmtTab" FunctionName="CLINICModel.Store.sp_ViewApmtTab">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CLINICModel.sp_ViewApmtTab_Result">
+          <ScalarProperty Name="Appointment_id" ColumnName="Appointment_id" />
+          <ScalarProperty Name="Appointment_Date" ColumnName="Appointment_Date" />
+          <ScalarProperty Name="Appointment_Time" ColumnName="Appointment_Time" />
+          <ScalarProperty Name="Appointment_Duration" ColumnName="Appointment_Duration" />
+          <ScalarProperty Name="Appointment_Status" ColumnName="Appointment_Status" />
+          <ScalarProperty Name="Appointment_PatientId" ColumnName="Appointment_PatientId" />
+          <ScalarProperty Name="Appointment_DoctorId" ColumnName="Appointment_DoctorId" />
+          <ScalarProperty Name="Appointment_CreatedBy" ColumnName="Appointment_CreatedBy" />
+          <ScalarProperty Name="Appointment_CreatedTime" ColumnName="Appointment_CreatedTime" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ViewDocById" FunctionName="CLINICModel.Store.sp_ViewDocById">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CLINICModel.sp_ViewDocById_Result">
+          <ScalarProperty Name="Doctor_id" ColumnName="Doctor_id" />
+          <ScalarProperty Name="Doctor_FirstName" ColumnName="Doctor_FirstName" />
+          <ScalarProperty Name="Doctor_LastName" ColumnName="Doctor_LastName" />
+          <ScalarProperty Name="Doctor_Gender" ColumnName="Doctor_Gender" />
+          <ScalarProperty Name="Doctor_Specialization" ColumnName="Doctor_Specialization" />
+          <ScalarProperty Name="Doctor_Mobile" ColumnName="Doctor_Mobile" />
+          <ScalarProperty Name="Doctor_Email" ColumnName="Doctor_Email" />
+          <ScalarProperty Name="Doctor_Address" ColumnName="Doctor_Address" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ViewDocTab" FunctionName="CLINICModel.Store.sp_ViewDocTab">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CLINICModel.sp_ViewDocTab_Result">
+          <ScalarProperty Name="Doctor_id" ColumnName="Doctor_id" />
+          <ScalarProperty Name="Doctor_FirstName" ColumnName="Doctor_FirstName" />
+          <ScalarProperty Name="Doctor_LastName" ColumnName="Doctor_LastName" />
+          <ScalarProperty Name="Doctor_Gender" ColumnName="Doctor_Gender" />
+          <ScalarProperty Name="Doctor_Specialization" ColumnName="Doctor_Specialization" />
+          <ScalarProperty Name="Doctor_Mobile" ColumnName="Doctor_Mobile" />
+          <ScalarProperty Name="Doctor_Email" ColumnName="Doctor_Email" />
+          <ScalarProperty Name="Doctor_Address" ColumnName="Doctor_Address" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ViewPatById" FunctionName="CLINICModel.Store.sp_ViewPatById">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CLINICModel.sp_ViewPatById_Result">
+          <ScalarProperty Name="Patient_id" ColumnName="Patient_id" />
+          <ScalarProperty Name="Patient_FirstName" ColumnName="Patient_FirstName" />
+          <ScalarProperty Name="Patient_LastName" ColumnName="Patient_LastName" />
+          <ScalarProperty Name="Patient_Gender" ColumnName="Patient_Gender" />
+          <ScalarProperty Name="Patient_Mobile" ColumnName="Patient_Mobile" />
+          <ScalarProperty Name="Patient_Email" ColumnName="Patient_Email" />
+          <ScalarProperty Name="Patient_Address" ColumnName="Patient_Address" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_ViewPatTab" FunctionName="CLINICModel.Store.sp_ViewPatTab">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CLINICModel.sp_ViewPatTab_Result">
+          <ScalarProperty Name="Patient_id" ColumnName="Patient_id" />
+          <ScalarProperty Name="Patient_FirstName" ColumnName="Patient_FirstName" />
+          <ScalarProperty Name="Patient_LastName" ColumnName="Patient_LastName" />
+          <ScalarProperty Name="Patient_Gender" ColumnName="Patient_Gender" />
+          <ScalarProperty Name="Patient_Mobile" ColumnName="Patient_Mobile" />
+          <ScalarProperty Name="Patient_Email" ColumnName="Patient_Email" />
+          <ScalarProperty Name="Patient_Address" ColumnName="Patient_Address" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_DocAvailableSlotsById" FunctionName="CLINICModel.Store.sp_DocAvailableSlotsById">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="CLINICModel.sp_DocAvailableSlotsById_Result">
+          <ScalarProperty Name="Appointment_Date" ColumnName="Appointment_Date" />
+          <ScalarProperty Name="Appointment_Time" ColumnName="Appointment_Time" />
+          <ScalarProperty Name="Appointment_Duration" ColumnName="Appointment_Duration" />
+          <ScalarProperty Name="Appointment_Status" ColumnName="Appointment_Status" />
+          <ScalarProperty Name="DOCTOR_FIRSTNAME" ColumnName="DOCTOR_FIRSTNAME" />
+          <ScalarProperty Name="DOCTOR_LASTNAME" ColumnName="DOCTOR_LASTNAME" />
+          <ScalarProperty Name="DOCTOR_GENDER" ColumnName="DOCTOR_GENDER" />
+          <ScalarProperty Name="DOCTOR_SPECIALIZATION" ColumnName="DOCTOR_SPECIALIZATION" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

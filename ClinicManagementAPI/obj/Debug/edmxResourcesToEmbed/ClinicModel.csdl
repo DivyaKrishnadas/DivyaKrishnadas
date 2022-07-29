@@ -1,0 +1,531 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CLINICModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="Account_id" />
+    </Key>
+    <Property Name="Account_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Account_Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Account_Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Account_Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Account_Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Account_Type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Account_CreatedAt" Type="DateTime" Precision="3" />
+    <Property Name="Account_Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Sessions" Relationship="Self.FK_Session_Account" FromRole="Account" ToRole="Session" />
+  </EntityType>
+  <EntityType Name="Appointment">
+    <Key>
+      <PropertyRef Name="Appointment_id" />
+    </Key>
+    <Property Name="Appointment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Appointment_Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Appointment_Time" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Appointment_Duration" Type="Int32" Nullable="false" />
+    <Property Name="Appointment_Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Appointment_PatientId" Type="Int32" Nullable="false" />
+    <Property Name="Appointment_DoctorId" Type="Int32" Nullable="false" />
+    <Property Name="Appointment_CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Appointment_CreatedTime" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Doctor" Relationship="Self.FK_Appointment_Doctor" FromRole="Appointment" ToRole="Doctor" />
+    <NavigationProperty Name="Patient" Relationship="Self.FK_Appointment_Patient1" FromRole="Appointment" ToRole="Patient" />
+  </EntityType>
+  <EntityType Name="Doctor">
+    <Key>
+      <PropertyRef Name="Doctor_id" />
+    </Key>
+    <Property Name="Doctor_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Doctor_FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Doctor_LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Doctor_Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Doctor_Specialization" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Doctor_Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Doctor_Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Doctor_Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Appointments" Relationship="Self.FK_Appointment_Doctor" FromRole="Doctor" ToRole="Appointment" />
+  </EntityType>
+  <EntityType Name="Patient">
+    <Key>
+      <PropertyRef Name="Patient_id" />
+    </Key>
+    <Property Name="Patient_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Patient_FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Patient_LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Patient_Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Patient_Mobile" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Patient_Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Patient_Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Appointments" Relationship="Self.FK_Appointment_Patient1" FromRole="Patient" ToRole="Appointment" />
+  </EntityType>
+  <EntityType Name="Session">
+    <Key>
+      <PropertyRef Name="Session_id" />
+    </Key>
+    <Property Name="Session_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Session_AccountId" Type="Int32" Nullable="false" />
+    <Property Name="Session_AppId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Session_UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Session_StartTime" Type="DateTime" Precision="3" />
+    <Property Name="Session_LastActivityTime" Type="DateTime" Precision="3" />
+    <Property Name="Session_IsTerminated" Type="Boolean" />
+    <Property Name="Session_IsKilled" Type="Boolean" />
+    <Property Name="Session_IPAddress" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
+    <Property Name="Session_HostName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Session_VersionNo" Type="Int32" />
+    <Property Name="Session_TransactionId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Session_CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Session_CreatedTime" Type="DateTime" Precision="3" />
+    <Property Name="Session_LastUpdatedBy" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Session_LastUpdatedTime" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Account" Relationship="Self.FK_Session_Account" FromRole="Session" ToRole="Account" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_Session_Account">
+    <End Role="Account" Type="Self.Account" Multiplicity="1" />
+    <End Role="Session" Type="Self.Session" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="Account_id" />
+      </Principal>
+      <Dependent Role="Session">
+        <PropertyRef Name="Session_AccountId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Appointment_Doctor">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+    <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="Doctor_id" />
+      </Principal>
+      <Dependent Role="Appointment">
+        <PropertyRef Name="Appointment_DoctorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Appointment_Patient1">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+    <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="Patient_id" />
+      </Principal>
+      <Dependent Role="Appointment">
+        <PropertyRef Name="Appointment_PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CLINICEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Accounts" EntityType="Self.Account" />
+    <EntitySet Name="Appointments" EntityType="Self.Appointment" />
+    <EntitySet Name="Doctors" EntityType="Self.Doctor" />
+    <EntitySet Name="Patients" EntityType="Self.Patient" />
+    <EntitySet Name="Sessions" EntityType="Self.Session" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <AssociationSet Name="FK_Session_Account" Association="Self.FK_Session_Account">
+      <End Role="Account" EntitySet="Accounts" />
+      <End Role="Session" EntitySet="Sessions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Appointment_Doctor" Association="Self.FK_Appointment_Doctor">
+      <End Role="Doctor" EntitySet="Doctors" />
+      <End Role="Appointment" EntitySet="Appointments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Appointment_Patient1" Association="Self.FK_Appointment_Patient1">
+      <End Role="Patient" EntitySet="Patients" />
+      <End Role="Appointment" EntitySet="Appointments" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ApmtDetails" ReturnType="Collection(CLINICModel.sp_ApmtDetails_Result)">
+      <Parameter Name="Doctor_id" Mode="In" Type="Int32" />
+      <Parameter Name="Patient_id" Mode="In" Type="Int32" />
+      <Parameter Name="Appointment_Date" Mode="In" Type="DateTime" />
+      <Parameter Name="User_Type" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ApmtHistory" ReturnType="Collection(CLINICModel.sp_ApmtHistory_Result)">
+      <Parameter Name="Patient_id" Mode="In" Type="Int32" />
+      <Parameter Name="User_Type" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_CancelApmt">
+      <Parameter Name="Appointment_id" Mode="In" Type="Int32" />
+      <Parameter Name="User_Type" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_DelAcct">
+      <Parameter Name="Account_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_DelApmt">
+      <Parameter Name="Appointment_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_DelDoc">
+      <Parameter Name="Doctor_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_DelPat">
+      <Parameter Name="Patient_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_DocAvailability" ReturnType="Collection(CLINICModel.sp_DocAvailability_Result)">
+      <Parameter Name="Doctor_id" Mode="In" Type="Int32" />
+      <Parameter Name="Start_Time" Mode="In" Type="DateTime" />
+      <Parameter Name="End_Time" Mode="In" Type="DateTime" />
+      <Parameter Name="Date" Mode="In" Type="DateTime" />
+      <Parameter Name="User_Type" Mode="In" Type="String" />
+      <Parameter Name="Availability_Condition" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_DocExceed6Hour" ReturnType="Collection(CLINICModel.sp_DocExceed6Hour_Result)">
+      <Parameter Name="Date" Mode="In" Type="DateTime" />
+      <Parameter Name="User_Type" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_DoctorSchedule" ReturnType="Collection(CLINICModel.sp_DoctorSchedule_Result)">
+      <Parameter Name="Doctor_id" Mode="In" Type="Int32" />
+      <Parameter Name="Appointment_Date" Mode="In" Type="DateTime" />
+      <Parameter Name="User_Type" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(CLINICModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(CLINICModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_InsAcct">
+      <Parameter Name="Account_Username" Mode="In" Type="String" />
+      <Parameter Name="Account_Password" Mode="In" Type="String" />
+      <Parameter Name="Account_Email" Mode="In" Type="String" />
+      <Parameter Name="Account_Mobile" Mode="In" Type="String" />
+      <Parameter Name="Account_Type" Mode="In" Type="String" />
+      <Parameter Name="Account_Status" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_InsApmt">
+      <Parameter Name="Appointment_Date" Mode="In" Type="DateTime" />
+      <Parameter Name="Appointment_Time" Mode="In" Type="DateTime" />
+      <Parameter Name="Appointment_Duration" Mode="In" Type="Int32" />
+      <Parameter Name="Appointment_Status" Mode="In" Type="String" />
+      <Parameter Name="Appointment_PatientId" Mode="In" Type="Int32" />
+      <Parameter Name="Appointment_DoctorId" Mode="In" Type="Int32" />
+      <Parameter Name="Appointment_CreatedBy" Mode="In" Type="String" />
+      <Parameter Name="Appointment_CreatedTime" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="sp_InsApmtByPat" ReturnType="Collection(Int32)">
+      <Parameter Name="Doctor_id" Mode="In" Type="Int32" />
+      <Parameter Name="NewAppointment_Date" Mode="In" Type="DateTime" />
+      <Parameter Name="NewAppointment_Time" Mode="In" Type="DateTime" />
+      <Parameter Name="Patient_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_InsDoc">
+      <Parameter Name="Doctor_FirstName" Mode="In" Type="String" />
+      <Parameter Name="Doctor_LastName" Mode="In" Type="String" />
+      <Parameter Name="Doctor_Gender" Mode="In" Type="String" />
+      <Parameter Name="Doctor_Specialization" Mode="In" Type="String" />
+      <Parameter Name="Doctor_Mobile" Mode="In" Type="String" />
+      <Parameter Name="Doctor_Email" Mode="In" Type="String" />
+      <Parameter Name="Doctor_Address" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_InsPat">
+      <Parameter Name="Patient_FirstName" Mode="In" Type="String" />
+      <Parameter Name="Patient_LastName" Mode="In" Type="String" />
+      <Parameter Name="Patient_Gender" Mode="In" Type="String" />
+      <Parameter Name="Patient_Mobile" Mode="In" Type="String" />
+      <Parameter Name="Patient_Email" Mode="In" Type="String" />
+      <Parameter Name="Patient_Address" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_InsSession" ReturnType="Collection(Int32)">
+      <Parameter Name="Session_AppId" Mode="In" Type="String" />
+      <Parameter Name="Session_UserName" Mode="In" Type="String" />
+      <Parameter Name="Session_StartTime" Mode="In" Type="DateTime" />
+      <Parameter Name="Session_LastActivityTime" Mode="In" Type="DateTime" />
+      <Parameter Name="Session_IsTerminated" Mode="In" Type="Boolean" />
+      <Parameter Name="Session_IsKilled" Mode="In" Type="Boolean" />
+      <Parameter Name="Session_IPAddress" Mode="In" Type="String" />
+      <Parameter Name="Session_HostName" Mode="In" Type="String" />
+      <Parameter Name="Session_VersionNo" Mode="In" Type="Int32" />
+      <Parameter Name="Session_TransactionId" Mode="In" Type="String" />
+      <Parameter Name="Session_CreatedBy" Mode="In" Type="String" />
+      <Parameter Name="Session_CreatedTime" Mode="In" Type="DateTime" />
+      <Parameter Name="Session_LastUpdatedBy" Mode="In" Type="String" />
+      <Parameter Name="Session_LastUpdatedTime" Mode="In" Type="DateTime" />
+      <Parameter Name="Username" Mode="In" Type="String" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_MaxDocAppointments" ReturnType="Collection(CLINICModel.sp_MaxDocAppointments_Result)">
+      <Parameter Name="Date" Mode="In" Type="DateTime" />
+      <Parameter Name="User_Type" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_registerAcct">
+      <Parameter Name="Account_Username" Mode="In" Type="String" />
+      <Parameter Name="Account_Password" Mode="In" Type="String" />
+      <Parameter Name="Account_Email" Mode="In" Type="String" />
+      <Parameter Name="Account_Mobile" Mode="In" Type="String" />
+      <Parameter Name="Account_Type" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_UpdAcct">
+      <Parameter Name="Account_id" Mode="In" Type="Int32" />
+      <Parameter Name="Account_Username" Mode="In" Type="String" />
+      <Parameter Name="Account_Password" Mode="In" Type="String" />
+      <Parameter Name="Account_Email" Mode="In" Type="String" />
+      <Parameter Name="Account_Mobile" Mode="In" Type="String" />
+      <Parameter Name="Account_Type" Mode="In" Type="String" />
+      <Parameter Name="Account_CreatedAt" Mode="In" Type="DateTime" />
+      <Parameter Name="Account_Status" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_UpdApmt">
+      <Parameter Name="Appointment_id" Mode="In" Type="Int32" />
+      <Parameter Name="Appointment_Date" Mode="In" Type="DateTime" />
+      <Parameter Name="Appointment_Time" Mode="In" Type="DateTime" />
+      <Parameter Name="Appointment_Duration" Mode="In" Type="Int32" />
+      <Parameter Name="Appointment_Status" Mode="In" Type="String" />
+      <Parameter Name="Appointment_PatientId" Mode="In" Type="Int32" />
+      <Parameter Name="Appointment_DoctorId" Mode="In" Type="Int32" />
+      <Parameter Name="Appointment_CreatedBy" Mode="In" Type="String" />
+      <Parameter Name="Appointment_CreatedTime" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="sp_UpdDoc">
+      <Parameter Name="Doctor_id" Mode="In" Type="Int32" />
+      <Parameter Name="Doctor_FirstName" Mode="In" Type="String" />
+      <Parameter Name="Doctor_LastName" Mode="In" Type="String" />
+      <Parameter Name="Doctor_Gender" Mode="In" Type="String" />
+      <Parameter Name="Doctor_Specialization" Mode="In" Type="String" />
+      <Parameter Name="Doctor_Mobile" Mode="In" Type="String" />
+      <Parameter Name="Doctor_Email" Mode="In" Type="String" />
+      <Parameter Name="Doctor_Address" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_UpdPat">
+      <Parameter Name="Patient_id" Mode="In" Type="Int32" />
+      <Parameter Name="Patient_FirstName" Mode="In" Type="String" />
+      <Parameter Name="Patient_LastName" Mode="In" Type="String" />
+      <Parameter Name="Patient_Gender" Mode="In" Type="String" />
+      <Parameter Name="Patient_Mobile" Mode="In" Type="String" />
+      <Parameter Name="Patient_Email" Mode="In" Type="String" />
+      <Parameter Name="Patient_Address" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="sp_ViewAcctById" ReturnType="Collection(CLINICModel.sp_ViewAcctById_Result)">
+      <Parameter Name="Account_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ViewAcctTab" ReturnType="Collection(CLINICModel.sp_ViewAcctTab_Result)" />
+    <FunctionImport Name="sp_ViewApmtById" ReturnType="Collection(CLINICModel.sp_ViewApmtById_Result)">
+      <Parameter Name="Appointment_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ViewApmtTab" ReturnType="Collection(CLINICModel.sp_ViewApmtTab_Result)" />
+    <FunctionImport Name="sp_ViewDocById" ReturnType="Collection(CLINICModel.sp_ViewDocById_Result)">
+      <Parameter Name="Doctor_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ViewDocTab" ReturnType="Collection(CLINICModel.sp_ViewDocTab_Result)" />
+    <FunctionImport Name="sp_ViewPatById" ReturnType="Collection(CLINICModel.sp_ViewPatById_Result)">
+      <Parameter Name="Patient_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_ViewPatTab" ReturnType="Collection(CLINICModel.sp_ViewPatTab_Result)" />
+    <FunctionImport Name="sp_DocAvailableSlots" ReturnType="Collection(CLINICModel.sp_DocAvailableSlots_Result)">
+      <Parameter Name="Doctor_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_DocAvailableSlotsById" ReturnType="Collection(CLINICModel.sp_DocAvailableSlotsById_Result)">
+      <Parameter Name="Doctor_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="sp_ApmtDetails_Result">
+    <Property Type="DateTime" Name="Appointment_Date" Nullable="false" />
+    <Property Type="DateTime" Name="Appointment_Time" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="Appointment_Duration" Nullable="false" />
+    <Property Type="String" Name="Appointment_Status" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Doctor_FirstName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Doctor_LastName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Doctor_Gender" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Doctor_Specialization" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Patient_FirstName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Patient_LastName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Patient_Gender" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Patient_Mobile" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Patient_Email" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="sp_ApmtHistory_Result">
+    <Property Type="DateTime" Name="Appointment_Date" Nullable="false" />
+    <Property Type="DateTime" Name="Appointment_Time" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="Appointment_Duration" Nullable="false" />
+    <Property Type="String" Name="Appointment_Status" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DOCTOR_FIRSTNAME" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DOCTOR_LASTNAME" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DOCTOR_GENDER" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DOCTOR_SPECIALIZATION" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="PATIENT_FIRSTNAME" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="PATIENT_LASTNAME" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="PATIENT_GENDER" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="PATIENT_MOBILE" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="sp_DocAvailability_Result">
+    <Property Type="Int32" Name="DOCTOR_ID" Nullable="false" />
+    <Property Type="String" Name="DOCTOR_FIRSTNAME" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DOCTOR_LASTNAME" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DOCTOR_GENDER" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DOCTOR_SPECIALIZATION" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="DOCTOR_MOBILE" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DOCTOR_EMAIL" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DOCTOR_ADDRESS" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="sp_DocExceed6Hour_Result">
+    <Property Type="Int32" Name="DOCTOR_ID" Nullable="false" />
+    <Property Type="String" Name="DOCTOR_FIRSTNAME" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DOCTOR_LASTNAME" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="NOOFPATIENTS" Nullable="true" />
+    <Property Type="Int32" Name="TOTALDURATION" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_DoctorSchedule_Result">
+    <Property Type="DateTime" Name="Appointment_Date" Nullable="false" />
+    <Property Type="DateTime" Name="Appointment_Time" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="Appointment_Duration" Nullable="false" />
+    <Property Type="String" Name="Appointment_Status" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Doctor_FirstName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Doctor_LastName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Doctor_Gender" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Doctor_Specialization" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Patient_FirstName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Patient_LastName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Patient_Gender" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Patient_Mobile" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Patient_Email" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="sp_MaxDocAppointments_Result">
+    <Property Type="Int32" Name="DOCTOR_ID" Nullable="false" />
+    <Property Type="String" Name="DOCTOR_FIRSTNAME" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DOCTOR_LASTNAME" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="No_of_Patients" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_ViewAcctById_Result">
+    <Property Type="Int32" Name="Account_id" Nullable="false" />
+    <Property Type="String" Name="Account_Username" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Account_Password" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Account_Email" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Account_Mobile" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Account_Type" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="Account_CreatedAt" Nullable="true" Precision="23" />
+    <Property Type="String" Name="Account_Status" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="sp_ViewAcctTab_Result">
+    <Property Type="Int32" Name="Account_id" Nullable="false" />
+    <Property Type="String" Name="Account_Username" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Account_Password" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Account_Email" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Account_Mobile" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Account_Type" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="Account_CreatedAt" Nullable="true" Precision="23" />
+    <Property Type="String" Name="Account_Status" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="sp_ViewApmtById_Result">
+    <Property Type="Int32" Name="Appointment_id" Nullable="false" />
+    <Property Type="DateTime" Name="Appointment_Date" Nullable="false" />
+    <Property Type="DateTime" Name="Appointment_Time" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="Appointment_Duration" Nullable="false" />
+    <Property Type="String" Name="Appointment_Status" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="Appointment_PatientId" Nullable="false" />
+    <Property Type="Int32" Name="Appointment_DoctorId" Nullable="false" />
+    <Property Type="String" Name="Appointment_CreatedBy" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="Appointment_CreatedTime" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="sp_ViewApmtTab_Result">
+    <Property Type="Int32" Name="Appointment_id" Nullable="false" />
+    <Property Type="DateTime" Name="Appointment_Date" Nullable="false" />
+    <Property Type="DateTime" Name="Appointment_Time" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="Appointment_Duration" Nullable="false" />
+    <Property Type="String" Name="Appointment_Status" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="Appointment_PatientId" Nullable="false" />
+    <Property Type="Int32" Name="Appointment_DoctorId" Nullable="false" />
+    <Property Type="String" Name="Appointment_CreatedBy" Nullable="true" MaxLength="50" />
+    <Property Type="DateTime" Name="Appointment_CreatedTime" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="sp_ViewDocById_Result">
+    <Property Type="Int32" Name="Doctor_id" Nullable="false" />
+    <Property Type="String" Name="Doctor_FirstName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Doctor_LastName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Doctor_Gender" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Doctor_Specialization" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Doctor_Mobile" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Doctor_Email" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Doctor_Address" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="sp_ViewDocTab_Result">
+    <Property Type="Int32" Name="Doctor_id" Nullable="false" />
+    <Property Type="String" Name="Doctor_FirstName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Doctor_LastName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Doctor_Gender" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Doctor_Specialization" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Doctor_Mobile" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Doctor_Email" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Doctor_Address" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="sp_ViewPatById_Result">
+    <Property Type="Int32" Name="Patient_id" Nullable="false" />
+    <Property Type="String" Name="Patient_FirstName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Patient_LastName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Patient_Gender" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Patient_Mobile" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Patient_Email" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Patient_Address" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="sp_ViewPatTab_Result">
+    <Property Type="Int32" Name="Patient_id" Nullable="false" />
+    <Property Type="String" Name="Patient_FirstName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Patient_LastName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Patient_Gender" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Patient_Mobile" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Patient_Email" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Patient_Address" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="sp_DocAvailableSlots_Result">
+    <Property Type="DateTime" Name="Appointment_Date" Nullable="false" />
+    <Property Type="DateTime" Name="Appointment_Time" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="Appointment_Duration" Nullable="false" />
+    <Property Type="String" Name="Appointment_Status" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DOCTOR_FIRSTNAME" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DOCTOR_LASTNAME" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DOCTOR_GENDER" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DOCTOR_SPECIALIZATION" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="sp_DocAvailableSlotsById_Result">
+    <Property Type="DateTime" Name="Appointment_Date" Nullable="false" />
+    <Property Type="DateTime" Name="Appointment_Time" Nullable="false" Precision="23" />
+    <Property Type="Int32" Name="Appointment_Duration" Nullable="false" />
+    <Property Type="String" Name="Appointment_Status" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DOCTOR_FIRSTNAME" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DOCTOR_LASTNAME" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DOCTOR_GENDER" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="DOCTOR_SPECIALIZATION" Nullable="true" MaxLength="50" />
+  </ComplexType>
+</Schema>

@@ -1,0 +1,345 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CLINICModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Account">
+    <Key>
+      <PropertyRef Name="Account_id" />
+    </Key>
+    <Property Name="Account_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Account_Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Account_Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Account_Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Account_Mobile" Type="nvarchar" MaxLength="50" />
+    <Property Name="Account_Type" Type="nvarchar" MaxLength="50" />
+    <Property Name="Account_CreatedAt" Type="datetime" />
+    <Property Name="Account_Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Appointment">
+    <Key>
+      <PropertyRef Name="Appointment_id" />
+    </Key>
+    <Property Name="Appointment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Appointment_Date" Type="date" Nullable="false" />
+    <Property Name="Appointment_Time" Type="datetime" Nullable="false" />
+    <Property Name="Appointment_Duration" Type="int" Nullable="false" />
+    <Property Name="Appointment_Status" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Appointment_PatientId" Type="int" Nullable="false" />
+    <Property Name="Appointment_DoctorId" Type="int" Nullable="false" />
+    <Property Name="Appointment_CreatedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="Appointment_CreatedTime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Doctor">
+    <Key>
+      <PropertyRef Name="Doctor_id" />
+    </Key>
+    <Property Name="Doctor_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Doctor_FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Doctor_LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Doctor_Gender" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Doctor_Specialization" Type="nvarchar" MaxLength="50" />
+    <Property Name="Doctor_Mobile" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Doctor_Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Doctor_Address" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Patient">
+    <Key>
+      <PropertyRef Name="Patient_id" />
+    </Key>
+    <Property Name="Patient_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Patient_FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Patient_LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Patient_Gender" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Patient_Mobile" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Patient_Email" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Patient_Address" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Session">
+    <Key>
+      <PropertyRef Name="Session_id" />
+    </Key>
+    <Property Name="Session_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Session_AccountId" Type="int" Nullable="false" />
+    <Property Name="Session_AppId" Type="varchar" MaxLength="50" />
+    <Property Name="Session_UserName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Session_StartTime" Type="datetime" />
+    <Property Name="Session_LastActivityTime" Type="datetime" />
+    <Property Name="Session_IsTerminated" Type="bit" />
+    <Property Name="Session_IsKilled" Type="bit" />
+    <Property Name="Session_IPAddress" Type="varchar" MaxLength="512" />
+    <Property Name="Session_HostName" Type="nvarchar" MaxLength="256" />
+    <Property Name="Session_VersionNo" Type="int" />
+    <Property Name="Session_TransactionId" Type="varchar" MaxLength="50" />
+    <Property Name="Session_CreatedBy" Type="nvarchar" MaxLength="50" />
+    <Property Name="Session_CreatedTime" Type="datetime" />
+    <Property Name="Session_LastUpdatedBy" Type="nvarchar" MaxLength="256" />
+    <Property Name="Session_LastUpdatedTime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_Appointment_Doctor">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+    <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="Doctor_id" />
+      </Principal>
+      <Dependent Role="Appointment">
+        <PropertyRef Name="Appointment_DoctorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Appointment_Patient1">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+    <End Role="Appointment" Type="Self.Appointment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="Patient_id" />
+      </Principal>
+      <Dependent Role="Appointment">
+        <PropertyRef Name="Appointment_PatientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Session_Account">
+    <End Role="Account" Type="Self.Account" Multiplicity="1" />
+    <End Role="Session" Type="Self.Session" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Account">
+        <PropertyRef Name="Account_id" />
+      </Principal>
+      <Dependent Role="Session">
+        <PropertyRef Name="Session_AccountId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_ApmtDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Doctor_id" Type="int" Mode="In" />
+    <Parameter Name="Patient_id" Type="int" Mode="In" />
+    <Parameter Name="Appointment_Date" Type="datetime" Mode="In" />
+    <Parameter Name="User_Type" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_ApmtHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Patient_id" Type="int" Mode="In" />
+    <Parameter Name="User_Type" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_CancelApmt" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Appointment_id" Type="int" Mode="In" />
+    <Parameter Name="User_Type" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_DelAcct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Account_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_DelApmt" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Appointment_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_DelDoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Doctor_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_DelPat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Patient_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_DocAvailability" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Doctor_id" Type="int" Mode="In" />
+    <Parameter Name="Start_Time" Type="datetime" Mode="In" />
+    <Parameter Name="End_Time" Type="datetime" Mode="In" />
+    <Parameter Name="Date" Type="date" Mode="In" />
+    <Parameter Name="User_Type" Type="varchar" Mode="In" />
+    <Parameter Name="Availability_Condition" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_DocAvailableSlotsById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Doctor_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_DocExceed6Hour" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Date" Type="date" Mode="In" />
+    <Parameter Name="User_Type" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_DoctorSchedule" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Doctor_id" Type="int" Mode="In" />
+    <Parameter Name="Appointment_Date" Type="datetime" Mode="In" />
+    <Parameter Name="User_Type" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_InsAcct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Account_Username" Type="nvarchar" Mode="In" />
+    <Parameter Name="Account_Password" Type="nvarchar" Mode="In" />
+    <Parameter Name="Account_Email" Type="nvarchar" Mode="In" />
+    <Parameter Name="Account_Mobile" Type="nvarchar" Mode="In" />
+    <Parameter Name="Account_Type" Type="nvarchar" Mode="In" />
+    <Parameter Name="Account_Status" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_InsApmt" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Appointment_Date" Type="date" Mode="In" />
+    <Parameter Name="Appointment_Time" Type="datetime" Mode="In" />
+    <Parameter Name="Appointment_Duration" Type="int" Mode="In" />
+    <Parameter Name="Appointment_Status" Type="nvarchar" Mode="In" />
+    <Parameter Name="Appointment_PatientId" Type="int" Mode="In" />
+    <Parameter Name="Appointment_DoctorId" Type="int" Mode="In" />
+    <Parameter Name="Appointment_CreatedBy" Type="varchar" Mode="In" />
+    <Parameter Name="Appointment_CreatedTime" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="sp_InsApmtByPat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Doctor_id" Type="int" Mode="In" />
+    <Parameter Name="NewAppointment_Date" Type="datetime" Mode="In" />
+    <Parameter Name="NewAppointment_Time" Type="datetime" Mode="In" />
+    <Parameter Name="Patient_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_InsDoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Doctor_FirstName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Doctor_LastName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Doctor_Gender" Type="nvarchar" Mode="In" />
+    <Parameter Name="Doctor_Specialization" Type="nvarchar" Mode="In" />
+    <Parameter Name="Doctor_Mobile" Type="nvarchar" Mode="In" />
+    <Parameter Name="Doctor_Email" Type="nvarchar" Mode="In" />
+    <Parameter Name="Doctor_Address" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_InsPat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Patient_FirstName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Patient_LastName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Patient_Gender" Type="nvarchar" Mode="In" />
+    <Parameter Name="Patient_Mobile" Type="nvarchar" Mode="In" />
+    <Parameter Name="Patient_Email" Type="nvarchar" Mode="In" />
+    <Parameter Name="Patient_Address" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_InsSession" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Session_AppId" Type="varchar" Mode="In" />
+    <Parameter Name="Session_UserName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Session_StartTime" Type="datetime" Mode="In" />
+    <Parameter Name="Session_LastActivityTime" Type="datetime" Mode="In" />
+    <Parameter Name="Session_IsTerminated" Type="bit" Mode="In" />
+    <Parameter Name="Session_IsKilled" Type="bit" Mode="In" />
+    <Parameter Name="Session_IPAddress" Type="varchar" Mode="In" />
+    <Parameter Name="Session_HostName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Session_VersionNo" Type="int" Mode="In" />
+    <Parameter Name="Session_TransactionId" Type="varchar" Mode="In" />
+    <Parameter Name="Session_CreatedBy" Type="nvarchar" Mode="In" />
+    <Parameter Name="Session_CreatedTime" Type="datetime" Mode="In" />
+    <Parameter Name="Session_LastUpdatedBy" Type="nvarchar" Mode="In" />
+    <Parameter Name="Session_LastUpdatedTime" Type="datetime" Mode="In" />
+    <Parameter Name="Username" Type="nvarchar" Mode="In" />
+    <Parameter Name="Password" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_MaxDocAppointments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Date" Type="date" Mode="In" />
+    <Parameter Name="User_Type" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_registerAcct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Account_Username" Type="nvarchar" Mode="In" />
+    <Parameter Name="Account_Password" Type="nvarchar" Mode="In" />
+    <Parameter Name="Account_Email" Type="nvarchar" Mode="In" />
+    <Parameter Name="Account_Mobile" Type="nvarchar" Mode="In" />
+    <Parameter Name="Account_Type" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_UpdAcct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Account_id" Type="int" Mode="In" />
+    <Parameter Name="Account_Username" Type="nvarchar" Mode="In" />
+    <Parameter Name="Account_Password" Type="nvarchar" Mode="In" />
+    <Parameter Name="Account_Email" Type="nvarchar" Mode="In" />
+    <Parameter Name="Account_Mobile" Type="nvarchar" Mode="In" />
+    <Parameter Name="Account_Type" Type="nvarchar" Mode="In" />
+    <Parameter Name="Account_CreatedAt" Type="datetime" Mode="In" />
+    <Parameter Name="Account_Status" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_UpdApmt" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Appointment_id" Type="int" Mode="In" />
+    <Parameter Name="Appointment_Date" Type="date" Mode="In" />
+    <Parameter Name="Appointment_Time" Type="datetime" Mode="In" />
+    <Parameter Name="Appointment_Duration" Type="int" Mode="In" />
+    <Parameter Name="Appointment_Status" Type="nvarchar" Mode="In" />
+    <Parameter Name="Appointment_PatientId" Type="int" Mode="In" />
+    <Parameter Name="Appointment_DoctorId" Type="int" Mode="In" />
+    <Parameter Name="Appointment_CreatedBy" Type="varchar" Mode="In" />
+    <Parameter Name="Appointment_CreatedTime" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="sp_UpdDoc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Doctor_id" Type="int" Mode="In" />
+    <Parameter Name="Doctor_FirstName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Doctor_LastName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Doctor_Gender" Type="nvarchar" Mode="In" />
+    <Parameter Name="Doctor_Specialization" Type="nvarchar" Mode="In" />
+    <Parameter Name="Doctor_Mobile" Type="nvarchar" Mode="In" />
+    <Parameter Name="Doctor_Email" Type="nvarchar" Mode="In" />
+    <Parameter Name="Doctor_Address" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_UpdPat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Patient_id" Type="int" Mode="In" />
+    <Parameter Name="Patient_FirstName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Patient_LastName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Patient_Gender" Type="nvarchar" Mode="In" />
+    <Parameter Name="Patient_Mobile" Type="nvarchar" Mode="In" />
+    <Parameter Name="Patient_Email" Type="nvarchar" Mode="In" />
+    <Parameter Name="Patient_Address" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_ViewAcctById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Account_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ViewAcctTab" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_ViewApmtById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Appointment_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ViewApmtTab" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_ViewDocById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Doctor_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ViewDocTab" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_ViewPatById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Patient_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_ViewPatTab" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="CLINICModelStoreContainer">
+    <EntitySet Name="Account" EntityType="Self.Account" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Appointment" EntityType="Self.Appointment" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Doctor" EntityType="Self.Doctor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Patient" EntityType="Self.Patient" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Session" EntityType="Self.Session" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Appointment_Doctor" Association="Self.FK_Appointment_Doctor">
+      <End Role="Doctor" EntitySet="Doctor" />
+      <End Role="Appointment" EntitySet="Appointment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Appointment_Patient1" Association="Self.FK_Appointment_Patient1">
+      <End Role="Patient" EntitySet="Patient" />
+      <End Role="Appointment" EntitySet="Appointment" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Session_Account" Association="Self.FK_Session_Account">
+      <End Role="Account" EntitySet="Account" />
+      <End Role="Session" EntitySet="Session" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
